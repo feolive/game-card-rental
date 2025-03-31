@@ -47,11 +47,12 @@ export default function AuthContextProvider({ children }) {
   useEffect(() => {
     const getUser = async () => {
         const [data, error] = await tryCatch(() => supabaseGetUser());
-        if(error){
+        if(error || data[1] !== null){
             console.error(error);
             setUser(null);
         }else{
-            setUser(data['data']);
+            let user = data[0]['data']['user'];
+            setUser(user);
         }
         setLoading(false);
     };
