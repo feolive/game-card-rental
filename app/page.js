@@ -38,13 +38,13 @@ export default function Home() {
           </aside>
           <nav>
             <h6 className="footer-title">Services</h6>
-            <a className="link link-hover">Rental</a>
-            <a className="link link-hover">Sales</a>
+            <Link className="link link-hover" href="#">Rental</Link>
+            <Link className="link link-hover" href="#">Sales</Link>
           </nav>
           <nav>
             <h6 className="footer-title">Company</h6>
-            <a className="link link-hover">About us</a>
-            <a className="link link-hover">Contact</a>
+            <Link className="link link-hover" href="/about">About us</Link>
+            <Link className="link link-hover" href="/staff-entry">Staff Entry</Link>
           </nav>
         </footer>
       </div>
