@@ -44,7 +44,7 @@ export default function Home() {
           <nav>
             <h6 className="footer-title">Company</h6>
             <Link className="link link-hover" href="/about">About us</Link>
-            <Link className="link link-hover" href="/staff-entry">Staff Entry</Link>
+            <Link className="link link-hover" href="/management">Staff Entry</Link>
           </nav>
         </footer>
       </div>

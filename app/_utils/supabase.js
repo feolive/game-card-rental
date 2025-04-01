@@ -8,7 +8,7 @@ import tryCatch from "./try-catch";
 /**
  * Create a new supabase client
  */
-export async function createSupabaseClient() {
+export async function supabase() {
   const cookieStore = await cookies()
   return createServerClient(
     process.env.SUPABASE_URL,
@@ -23,7 +23,7 @@ export async function createSupabaseClient() {
             cookiesToSet.forEach(({ name, value, options }) =>
               cookieStore.set(name, value, options)
             )
-          } catch {
+          } catch (error) {
             console.error("Failed to set cookies");
           }
         },
@@ -38,25 +38,25 @@ export async function createSupabaseClient() {
  * @returns 
  */
 export async function supabaseGetUser() {
-  const supabase = await createSupabaseClient();
-  const [data, error] = await tryCatch(() => supabase.auth.getUser());
+  const spb = await supabase();
+  const [data, error] = await tryCatch(() => spb.auth.getUser());
   return [data, error];
 }
 
 export async function supabaseSignUp({email, password}) {
-  const supabase = await createSupabaseClient();
-  const [data, error] = await tryCatch(() => supabase.auth.signUpWithPassword({ email: email, password: password }));
+  const spb = await supabase();
+  const [data, error] = await tryCatch(() => spb.auth.signUpWithPassword({ email: email, password: password }));
   return [data, error];
 }
 
 export async function supabaseSignIn({email, password}) {
-  const supabase = await createSupabaseClient();
-  const [data, error] = await tryCatch(() => supabase.auth.signInWithPassword({ email: email, password: password }));
+  const spb = await supabase();
+  const [data, error] = await tryCatch(() => spb.auth.signInWithPassword({ email: email, password: password }));
   return [data, error];
 }
 
 export async function supabaseSignOut() {
-  const supabase = await createSupabaseClient();
-  const [data, error] = await tryCatch(() => supabase.auth.signOut());
+  const spb = await supabase();
+  const [data, error] = await tryCatch(() => spb.auth.signOut());
   return [data, error];
 }

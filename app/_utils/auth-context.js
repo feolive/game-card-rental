@@ -3,13 +3,12 @@
 import { createContext, useState } from "react";
 import tryCatch from "@/app/_utils/try-catch";
 import { useEffect } from "react";
-import StaffLogin from "../_components/staff-login";
 import { supabaseGetUser, supabaseSignIn, supabaseSignOut, supabaseSignUp } from "@/app/_utils/supabase";
 
 const AuthContext = createContext();
 
 
-export default function AuthContextProvider({ children }) {
+export default function AuthContextProvider({ children, loginPage }) {
 
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -61,7 +60,7 @@ export default function AuthContextProvider({ children }) {
 
 
   return <AuthContext.Provider value={{user, signIn, signOut, signUp}}>
-    {user ? children : <StaffLogin />}</AuthContext.Provider>;
+    {user ? children : loginPage}</AuthContext.Provider>;
 }
 
 export { AuthContext }
