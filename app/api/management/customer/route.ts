@@ -29,15 +29,15 @@ export async function GET(req: NextRequest) {
  */
 export async function POST(req: NextRequest) {
     // TODO: add your code that handles the POST request here, referencing the code example below, and then remove these two line comments. For more usecases, see https://orm.drizzle.team/docs/insert
-    return await doPOST(async (_db) => {
-      const body = await getRequestBody(req);
-      const res = await _db.insert(customer).values({
-        firstName: body.firstName,
-        lastName: body.lastName,
-      });
-      throw new Error("Customer insersion Error");
-      return res;
-    });
+    // return await doPOST(async (_db) => {
+    //   const body = await getRequestBody(req);
+    //   const res = await _db.insert(customer).values({
+    //     firstName: body.firstName,
+    //     lastName: body.lastName,
+    //   });
+    //   throw new Error("Customer insersion Error");
+    //   return res;
+    // });
 }
 
 /**
@@ -56,7 +56,6 @@ export async function PUT(req: NextRequest) {
     //   }).where(eq(customer.id, 1));
     //   return res;
     // });
-    return {};
 }
 
 /**
@@ -71,5 +70,4 @@ export async function DELETE(req: NextRequest) {
     //   const res = await _db.delete(customer).where(eq(customer.id, 1));
     //   return res;
     // });
-    return {};
 }

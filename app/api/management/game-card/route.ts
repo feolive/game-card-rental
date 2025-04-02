@@ -16,10 +16,10 @@ import { category } from "@/db/schema";
  */
 export async function GET(req: NextRequest) {
   // TODO: add your query code here as code example below, and then remove these two line comments. For more usecases, see https://orm.drizzle.team/docs/select
-    return await doGET(async (_db) => {
-      const result = await _db.select({name: category.name, description: category.description}).from(category).where(eq(category.id, 1));
-      return result;
-    });
+    // return await doGET(async (_db) => {
+    //   const result = await _db.select({name: category.name, description: category.description}).from(category).where(eq(category.id, 1));
+    //   return result;
+    // });
 }
 
 /**
