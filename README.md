@@ -52,7 +52,7 @@ To learn more about Drizzle, take a look at the following resources:
 - [Drizzle Documentation](https://orm.drizzle.team/docs/introduction)
 
 ## Github Commit Conventions
-everyone commits their code to the corresponding branch in Github, and start the merge request to `main` after the code is completed.
+everyone commits their code on their own branch, and pull the updates from `main` after the code is completed, and merge the changes into `main` before pushing.
 
 ## How to view the entity diagram
 install the `PlantUML` plugin for your IDE, and open the `entities.puml` file.
