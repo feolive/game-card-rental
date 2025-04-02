@@ -15,23 +15,24 @@ export const gameCard = pgTable('game_card', {
   name: text('name').notNull(),
   description: text('description'),
   inventory: integer('inventory').notNull(),
-  createdTime: timestamp('created_time').defaultNow(),
-  updatedTime: timestamp('updated_time').defaultNow(),
+  price: numeric('price').notNull(),
+  createdTime: timestamp('created_time'),
+  updatedTime: timestamp('updated_time'),
 });
 
-export const cardCategory = pgTable('card_category', {
+export const cardCategoryMapping = pgTable('card_category_mapping', {
   id: integer('id').primaryKey(),
-  gameId: integer('game_id').notNull(),
+  cardId: integer('card_id').notNull(),
   categoryId: integer('category_id').notNull(),
-  createdTime: timestamp('created_time').defaultNow(),
+  createdTime: timestamp('created_time'),
 });
 
 export const order = pgTable('order', {
   id: integer('id').primaryKey(),
   customerId: integer('customer_id').notNull(),
   cost: numeric('cost').notNull(),
-  createTime: timestamp('create_time').defaultNow(),
-  updateTime: timestamp('update_time').defaultNow(),
+  createdTime: timestamp('created_time'),
+  updatedTime: timestamp('updated_time'),
 });
 
 export const customer = pgTable('customer', {
@@ -40,15 +41,15 @@ export const customer = pgTable('customer', {
   lastName: text('last_name'),
   credits: integer('credits'),
   createdTime: timestamp('created_time'),
-  updateTime: timestamp('update_time'),
+  updatedTime: timestamp('updated_time'),
   description: text('description'),
   avatarAddr: text('avatar_addr'),
 });
 
-export const cardOrder = pgTable('card_order', {
+export const cardOrderMapping = pgTable('card_order_mapping', {
   id: integer('id').primaryKey(),
   orderId: integer('order_id').notNull(),
-  cardId: integer('game_id').notNull(),
+  cardId: integer('card_id').notNull(),
   quantity: integer('quantity').notNull(),
-  createdTime: timestamp('created_time').defaultNow()
+  createdTime: timestamp('created_time')
 });
