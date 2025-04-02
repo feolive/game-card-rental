@@ -1,17 +1,20 @@
 "use client";
+import { useState } from "react";
+import { useEffect } from "react";
 
 export default function Customer() {
   
   // TODO: REPLACE ALL THE CODE BELOW WITH YOUR OWN CODE
   // THE COMMENTED CODE IS A SIMPLE REQUEST TO THE API THAT LOCATES IN THE app/api/management/game-card/route.ts
 
-  // const [category, setCategory] = useState({});
+  // const [customer, setCustomer] = useState({});
 
 
   // useEffect(() => {
   //   async function handleSubmit() {
-  //     const res = await fetch('/api/management/game-card');
+  //     const res = await fetch('/api/management/customer');
   //     const data = await res.json();
+  //     console.log(data);
   //   }
   //   handleSubmit();
   // }, []);

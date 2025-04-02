@@ -53,4 +53,12 @@ entity category {
     createdTime: timestamp <<generated>>
     updatedTime: timestamp <<generated>>
 }
+
+order }o--|| customer
+gameCard ||--o{ cardOrderMapping
+cardOrderMapping }o--|| order
+gameCard ||--o{ cardCategoryMapping
+cardCategoryMapping }o--|| category
+
+
 @enduml
