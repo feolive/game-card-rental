@@ -6,7 +6,7 @@ export default function Home() {
     <>
       <header className="w-full fixed top-0">
         <div className="flex justify-evenly items-center w-full h-14 sm:h-18 px-16 bg-gray-200 backdrop-blur-sm">
-          <h1>Game Card Rental</h1>
+          <h1 className="text-2xl font-bold text-primary outline-2 px-2 rounded-full">Game Card Rental</h1>
           <nav className="flex gap-2">
             <Link className="btn btn-outline btn-info" href="#">Sign In</Link>
             <Link className="btn btn-secondary" href="#">Register Now</Link>
@@ -14,7 +14,7 @@ export default function Home() {
         </div>
       </header>
       <div className="flex flex-col justify-center items-center min-h-screen gap-8 font-[family-name:var(--font-geist-sans)]">
-        <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
+        <main className="flex flex-col gap-[32px] min-h-[600px] row-start-2 items-center sm:items-start">
         
         </main>
         <footer className="footer sm:footer-horizontal bg-base-200 text-base-content p-10 bottom-0">
