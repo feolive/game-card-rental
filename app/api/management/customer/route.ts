@@ -35,7 +35,6 @@ export async function POST(req: NextRequest) {
     //     firstName: body.firstName,
     //     lastName: body.lastName,
     //   });
-    //   throw new Error("Customer insersion Error");
     //   return res;
     // });
 }

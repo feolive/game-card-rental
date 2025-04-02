@@ -1,0 +1,56 @@
+@startuml game card rental entities
+hide circle
+skinparam linetype ortho
+entity customer {
+    id: integer <<generated>> <<pk>>
+    firstName: text <<not null>>
+    lastName: text
+    credits: integer <<default 0>>
+    description: text
+    avatarAddr: text
+    createdTime: timestamp <<generated>>
+    updatedTime: timestamp <<generated>>
+}
+
+entity gameCard {
+    id: integer <<generated>> <<pk>>
+    name: text <<not null>>
+    description: text
+    inventory: integer <<not null>>
+    price: numeric <<not null>>
+    createdTime: timestamp <<generated>>
+    updatedTime: timestamp <<generated>>
+}
+
+entity order {
+    id: integer <<generated>> <<pk>>
+    customerId: integer <<not null>>
+    cost: numeric <<not null>>
+    createdTime: timestamp <<generated>>
+    updatedTime: timestamp <<generated>>
+}
+
+entity cardOrderMapping {
+    id: integer <<generated>> <<pk>>
+    orderId: integer <<not null>>
+    cardId: integer <<not null>>
+    quantity: integer <<not null>>
+    createdTime: timestamp <<generated>>
+}
+
+entity cardCategoryMapping {
+    id: integer <<generated>> <<pk>>
+    cardId: integer <<not null>>
+    categoryId: integer <<not null>>
+    createdTime: timestamp <<generated>>
+}
+
+entity category {
+    id: integer <<generated>> <<pk>>
+    code: text <<not null>>
+    name: text <<not null>>
+    description: text
+    createdTime: timestamp <<generated>>
+    updatedTime: timestamp <<generated>>
+}
+@enduml

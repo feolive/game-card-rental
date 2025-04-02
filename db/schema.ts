@@ -1,8 +1,8 @@
-import { pgTable,serial, text, timestamp, integer, numeric, varchar } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, integer, numeric, varchar } from "drizzle-orm/pg-core";
 
 
 export const category = pgTable('category', {
-  id: serial('id').primaryKey(),
+  id: integer('id').primaryKey(),
   code: text('code').notNull(),
   name: text('name').notNull(),
   description: varchar('description'),
@@ -36,7 +36,7 @@ export const order = pgTable('order', {
 });
 
 export const customer = pgTable('customer', {
-  id: serial('id').primaryKey(),
+  id: integer('id').primaryKey(),
   firstName: text('first_name').notNull(),
   lastName: text('last_name'),
   credits: integer('credits'),
