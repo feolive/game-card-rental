@@ -1,6 +1,17 @@
 @startuml game card rental entities
 hide circle
 skinparam linetype ortho
+skinparam backgroundColor #fdf0d5
+skinparam roundcorner 20
+skinparam shadowing true
+skinparam class {
+    backgroundColor #003049
+    arrowColor #003049
+    borderColor #fdf0d5
+    fontColor #fdf0d5
+    attributeFontColor #fdf0d5
+}
+
 entity customer {
     id: integer <<generated>> <<pk>>
     firstName: text <<not null>>
