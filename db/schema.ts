@@ -6,8 +6,9 @@ export const category = pgTable('category', {
   code: text('code').notNull(),
   name: text('name').notNull(),
   description: varchar('description'),
-  createdTime: timestamp('created_time').defaultNow(),
-  updatedTime: timestamp('updated_time').defaultNow(),
+  mark: integer('mark'),
+  createdTime: timestamp('created_time'),
+  updatedTime: timestamp('updated_time'),
 });
 
 export const gameCard = pgTable('game_card', {
@@ -18,6 +19,7 @@ export const gameCard = pgTable('game_card', {
   price: numeric('price').notNull(),
   createdTime: timestamp('created_time'),
   updatedTime: timestamp('updated_time'),
+  mark: integer('mark'),
 });
 
 export const cardCategoryMapping = pgTable('card_category_mapping', {
@@ -33,6 +35,7 @@ export const order = pgTable('order', {
   cost: numeric('cost').notNull(),
   createdTime: timestamp('created_time'),
   updatedTime: timestamp('updated_time'),
+  mark: integer('mark'),
 });
 
 export const customer = pgTable('customer', {
@@ -40,6 +43,7 @@ export const customer = pgTable('customer', {
   firstName: text('first_name').notNull(),
   lastName: text('last_name'),
   credits: integer('credits'),
+  mark: integer('mark'),
   createdTime: timestamp('created_time'),
   updatedTime: timestamp('updated_time'),
   description: text('description'),
