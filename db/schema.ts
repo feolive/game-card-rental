@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, integer, numeric, varchar } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, integer, numeric, varchar, uuid } from "drizzle-orm/pg-core";
 
 
 export const category = pgTable('category', {
@@ -46,8 +46,10 @@ export const customer = pgTable('customer', {
   mark: integer('mark'),
   createdTime: timestamp('created_time'),
   updatedTime: timestamp('updated_time'),
+  email: text('email'),
   description: text('description'),
   avatarAddr: text('avatar_addr'),
+  authId: uuid('auth_id')
 });
 
 export const cardOrderMapping = pgTable('card_order_mapping', {

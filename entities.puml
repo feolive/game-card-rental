@@ -19,6 +19,9 @@ entity customer {
     credits: integer <<default 0>>
     description: text
     avatarAddr: text
+    authId: uuid <<not null>>
+    email: text
+    mark: integer
     createdTime: timestamp <<generated>>
     updatedTime: timestamp <<generated>>
 }
@@ -29,6 +32,7 @@ entity gameCard {
     description: text
     inventory: integer <<not null>>
     price: numeric <<not null>>
+    mark: integer
     createdTime: timestamp <<generated>>
     updatedTime: timestamp <<generated>>
 }
@@ -37,6 +41,7 @@ entity order {
     id: integer <<generated>> <<pk>>
     customerId: integer <<not null>>
     cost: numeric <<not null>>
+    mark: integer
     createdTime: timestamp <<generated>>
     updatedTime: timestamp <<generated>>
 }
@@ -61,6 +66,7 @@ entity category {
     code: text <<not null>>
     name: text <<not null>>
     description: text
+    mark: integer
     createdTime: timestamp <<generated>>
     updatedTime: timestamp <<generated>>
 }

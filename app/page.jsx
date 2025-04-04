@@ -1,15 +1,50 @@
-import Image from "next/image";
+"use client";
+
 import Link from "next/link";
+import { useContext } from "react";
+import { AuthContext } from "@/app/_utils/auth-context";
+import tryCatch from "@/app/_utils/try-catch";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+
+  const { user, customer, signOut } = useContext(AuthContext);
+
+  const route = useRouter();
+
+  const signOutStaff = async () => {
+    if(user){
+      const [data, error] = await tryCatch(() => signOut());
+      if(error){
+        console.error(error);
+      }
+    }
+    route.push('/rental');
+  };
+
+  const signOutCustomer = async () => {
+    if(customer){
+      const [data, error] = await tryCatch(() => signOut());
+      if(error){
+        console.error(error);
+      }
+    }
+    route.push('/management');
+  };
+
+
   return (
     <>
-      <header className="w-full fixed top-0">
-        <div className="flex justify-evenly items-center w-full h-14 sm:h-18 px-16 bg-gray-200 backdrop-blur-sm">
+      <header className="w-full fixed top-0 shadow-sm">
+        <div className="flex justify-evenly items-center w-full h-14 sm:h-18 px-16 bg-base-200 opacity-80 backdrop-blur-sm">
           <h1 className="text-2xl font-bold text-primary outline-2 px-2 rounded-full">Game Card Rental</h1>
-          <nav className="flex gap-2">
-            <Link className="btn btn-outline btn-info" href="#">Sign In</Link>
-            <Link className="btn btn-secondary" href="#">Register Now</Link>
+          <nav className="flex justify-end items-end gap-2">
+            { customer ? <Link className="btn btn-link underline-offset-2" href="/rental">My Account</Link> : (
+              <>
+                <button className="btn btn-outline btn-info rounded-lg" onClick={signOutStaff}>Sign In</button>
+                <Link className="btn btn-secondary rounded-lg" href="/signup">Register Now</Link>
+              </>
+            )}
           </nav>
         </div>
       </header>
@@ -44,7 +79,7 @@ export default function Home() {
           <nav>
             <h6 className="footer-title">Company</h6>
             <Link className="link link-hover" href="/about">About us</Link>
-            <Link className="link link-hover" href="/management">Staff Entry</Link>
+            <button className="link link-hover" onClick={signOutCustomer}>Staff Entry</button>
           </nav>
         </footer>
       </div>

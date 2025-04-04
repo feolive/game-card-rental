@@ -32,6 +32,14 @@ export async function createSupabaseClient() {
   )
 }
  
+export async function supabaseGetCustomer({user}) {
+  if(!user || !user.id){
+    return [null,null];
+  }
+  const spb = await createSupabaseClient();
+  const {data, error} = await spb.from('customer').select('*').eq('auth_id', user.id);
+  return [data, error];
+}
 
 /**
  * get the current logged in user
@@ -49,10 +57,21 @@ export async function supabaseGetUser() {
  * @param {string} password password
  * @returns 
  */
-export async function supabaseSignUp({email, password}) {
+export async function supabaseSignUp({email, password, firstName, lastName, avatarAddr=null, type="staff"}) {
   const spb = await createSupabaseClient();
-  const [data, error] = await tryCatch(() => spb.auth.signUpWithPassword({ email: email, password: password }));
-  return [data, error];
+  const {data, error} = await spb.auth.signUp({ email: email, password: password });
+  if(error){
+    return [null, error];
+  }else{
+    if(type === "customer"){
+      const {error} = await spb.from('customer').insert({ auth_id: data["user"].id, email: email, first_name: firstName, last_name: lastName, avatar_addr: avatarAddr });
+      if(error){
+        return [null, error];
+      }else{
+        return [data["user"], null];
+      }
+    }
+  }
 }
 
 /**
