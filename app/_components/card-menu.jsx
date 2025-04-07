@@ -1,6 +1,11 @@
 import CardItem from "./card-item";
+import { CartContext } from "@/app/_utils/cart-context";
+import { useContext } from "react";
 
 export default function CardMenu() {
+
+  const { items, addItem, clearCart } = useContext(CartContext);
+
   return (
     <div className="w-full h-full relative flex flex-col gap-3">
       <div className="flex justify-start items-center gap-4">
@@ -40,14 +45,9 @@ export default function CardMenu() {
         </div>
       </div>
       <section className="grid grid-cols-4 grid-rows-2 gap-10 h-5/6 self-center">
-      <CardItem item={{}} />
-        <CardItem item={{}} />
-        <CardItem item={{}} />
-        <CardItem item={{}} />
-        <CardItem item={{}} />
-        <CardItem item={{}} />
-        <CardItem item={{}} />
-        <CardItem item={{}} />
+      {items && items.map((item) => (
+        <CardItem key={item.id} item={item} />
+      ))}
       </section>
       <div className="flex justify-center items-center mt-1">
         <div className="join grid grid-cols-2">

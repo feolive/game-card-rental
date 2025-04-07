@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 import { AuthContext } from "@/app/_utils/auth-context";
 import clsx from "clsx";
 import Card from "@/app/_components/card";
@@ -8,10 +8,14 @@ import OrderDetails from "@/app/_components/order-details";
 import Close from "@/app/_icons/Close";
 import CardMenu from "@/app/_components/card-menu";
 import CartIcon from "@/app/_icons/CartIcon";
+import TrashCan from "@/app/_icons/TrashCan";
 import SDCard from "@/app/_icons/SDCard";
 import Cart from "@/app/_components/cart";
 import RightArrow from "@/app/_icons/RightArrow"
 import tryCatch from "@/app/_utils/try-catch";
+import { CartContext } from "@/app/_utils/cart-context";
+import ModalDialog from "@/app/_components/modal-dialog";
+
 
 export default function Rental() {
   const { customer, signOut } = useContext(AuthContext);
@@ -22,6 +26,10 @@ export default function Rental() {
   const [isOrderDetails, setIsOrderDetails] = useState(false);
   const [orders, setOrders] = useState([]);
   const [currOrder, setCurrOrder] = useState({});
+  const { clearCart } = useContext(CartContext);
+  const modalRef = useRef(null);
+  const [isClearCart, setIsClearCart] = useState(false);
+
 
   const flipCard = () => {
     if (isCart) {
@@ -38,6 +46,14 @@ export default function Rental() {
   const orderDetails = ({orderId, cost}) => {
     setIsOrderDetails(true);
     setCurrOrder({orderId, cost});
+  };
+
+  const clearTheCart = async () => {
+    modalRef.current.showModal();
+    if(isClearCart) {
+      await clearCart();
+    }
+    setIsClearCart(!isClearCart);
   };
 
   useEffect(() => {
@@ -134,7 +150,7 @@ export default function Rental() {
               <p className="text-primary">
                 {me?.first_name} {me?.last_name}
               </p>
-              <p className="text-neutral-content">{me?.description || "--"}</p>
+              <p className="text-base-content opacity-60">{me?.description || "--"}</p>
               <p className="text-primary">credits: {me?.credits}</p>
               <button
                 className="btn btn-outline btn-xs absolute bottom-4 left-4"
@@ -145,7 +161,7 @@ export default function Rental() {
             </div>
           </div>
         </div>
-        <div className={clsx("w-full card h-1/2 bg-base-100 shadow-sm overflow-y-auto transition-transform duration-600", {
+        <div className={clsx("w-full card h-1/2 bg-base-100 shadow-sm overflow-x-hidden overflow-y-auto transition-transform duration-600", {
           "scale-150": isOrderDetails,
           "left-[25%] bottom-[12%]": isOrderDetails,
           "backdrop-blur-xs": isOrderDetails,
@@ -213,10 +229,16 @@ export default function Rental() {
           <CardMenu />
         </Card>
         <Card rotate={rotateCart}>
-          <h2 className="card-title mb-3">Cart</h2>
+          <div className="flex justify-between items-center">
+            <h2 className="card-title mb-3">Cart</h2>
+            <button className="btn btn-square btn-sm rounded-lg btn-error" onClick={() => {clearTheCart()}}>
+              <TrashCan color="var(--color-base-100)" />
+            </button>
+          </div>
           <Cart />
         </Card>
       </div>
+      <ModalDialog refName={modalRef} title="Clear Cart" description="Are you sure you want to clear your cart?" onConfirm={clearTheCart} />
     </div>
   );
 }

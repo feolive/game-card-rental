@@ -1,7 +1,12 @@
 import PlusIcon from "@/app/_icons/PlusIcon";
 import MinusIcon from "@/app/_icons/MinusIcon";
+import { useContext } from "react";
+import { CartContext } from "@/app/_utils/cart-context";
 
 export default function CardItem({ item }) {
+
+  const { addItem, subItem } = useContext(CartContext);
+
   return (
     <div className="card bg-base-100 w-56 h-64 shadow-md shadow-slate-500 hover:translate-y-[-5px] transition-transform duration-300">
       <figure>
@@ -34,8 +39,8 @@ export default function CardItem({ item }) {
             "The form-handler is typically a server page with a script for processing input data."}
         </p>
         <div className="card-actions justify-start items-center gap-1 mt-1 -mb-3">
-          <button className="btn btn-info btn-xs rounded-full">
-            <MinusIcon color="#000" />
+          <button className="btn btn-info btn-xs rounded-full" onClick={() => subItem(item)} >
+            <MinusIcon color="var(--color-base-100)" />
           </button>
           <input
             type="number"
@@ -43,10 +48,10 @@ export default function CardItem({ item }) {
             max={item?.inventory || 0}
             readOnly
             className="input input-xs w-10 text-center"
-            value="1"
+            value={item?.quantity || 0}
           />
-          <button className="btn btn-secondary btn-xs rounded-full">
-            <PlusIcon color="#000" />
+          <button className="btn btn-secondary btn-xs rounded-full" onClick={() => addItem(item)}>
+            <PlusIcon color="var(--color-base-100)" />
           </button>
         </div>
       </div>
