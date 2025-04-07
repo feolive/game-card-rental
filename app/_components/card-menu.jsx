@@ -7,7 +7,7 @@ export default function CardMenu() {
   const { items, addItem, clearCart } = useContext(CartContext);
 
   return (
-    <div className="w-full h-[91%] relative flex flex-col gap-3">
+    <div className="w-full h-[80em] relative flex flex-col gap-3">
       <div className="flex justify-start items-center gap-4">
         <label className="input">
           <svg

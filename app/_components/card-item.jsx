@@ -8,7 +8,7 @@ export default function CardItem({ item }) {
   const { addItem, subItem } = useContext(CartContext);
 
   return (
-    <div className="card bg-base-100 w-46 h-50 2xl:w-50 2xl:h-58 shadow-md shadow-slate-500 hover:translate-y-[-5px] transition-transform duration-300">
+    <div className="card bg-base-100 w-[12em] h-[14em] 2xl:w-[14em] 2xl:h-[16em] shadow-md shadow-slate-500 hover:translate-y-[-5px] transition-transform duration-300">
       <figure>
         <img
           className="w-full h-full object-cover"

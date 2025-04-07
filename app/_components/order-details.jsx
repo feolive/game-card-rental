@@ -29,7 +29,7 @@ export default function OrderDetails({ id }) {
 
   return (
     <>
-      {details && <ul className="list w-full bg-base-100 rounded-box shadow-md text-xs">
+      {details && <ul className="list w-full h-[22em] 2xl:h-[28em] rounded-box overflow-y-auto overflow-x-hidden bg-transparent text-xs">
         {details.map((detail) => (
           <li className="list-row flex justify-between items-center" key={detail.id}>
             <figure><img src={detail.img} alt="Card Cover" className="size-12 rounded-box object-contain" /></figure>

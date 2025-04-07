@@ -161,7 +161,7 @@ export default function Rental() {
             </div>
           </div>
         </div>
-        <div className={clsx("w-full card h-1/2 bg-base-100 shadow-sm overflow-x-hidden overflow-y-auto transition-transform duration-600", {
+        <div className={clsx("w-full card h-1/2 bg-base-100 shadow-sm transition-transform duration-600", {
           "scale-150": isOrderDetails,
           "left-[25%] bottom-[12%]": isOrderDetails,
           "backdrop-blur-xs": isOrderDetails,
@@ -172,7 +172,7 @@ export default function Rental() {
         {!isOrderDetails ? (
           <div className="card-body">
             <h2 className="card-title">Orders</h2>
-            {orders && <ul className="list bg-base-100 rounded-box shadow-md w-full">
+            {orders && <ul className="list w-full h-[22em] 2xl:h-[25em] bg-base-100 rounded-box overflow-y-auto overflow-x-hidden">
                 {orders.map((order) => (
                   <li className="list-row cursor-pointer flex justify-between items-center hover:bg-[var(--color-hover-highlight)]" key={order.id} onClick={() => {orderDetails({orderId: order.id, cost: order.cost})}}>
                     <div>{order.id}</div>
