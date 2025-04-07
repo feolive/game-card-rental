@@ -12,12 +12,12 @@ export default function Cart() {
 
   return (
     <div className="w-full h-full flex flex-col gap-3">
-      <ul className="list bg-base-100 rounded-box h-[95%]">
+      <ul className="list bg-base-100 rounded-box h-[80%] overflow-y-auto overflow-x-hidden">
         {items && items.map((item) => (
           <CartItem key={item.id} item={item} />
         ))}
       </ul>
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center mt-4">
         <button className="btn btn-primary" onClick={handleCheckout}>Checkout</button>
       </div>
     </div>

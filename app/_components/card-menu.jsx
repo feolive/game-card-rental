@@ -45,15 +45,9 @@ export default function CardMenu() {
         </div>
       </div>
       <section className="grid grid-cols-4 grid-rows-2 h-5/6 self-center gap-10">
-      {/* {items && items.map((item) => (
+      {items && items.map((item) => (
         <CardItem key={item.id} item={item} />
-      ))} */}
-      <CardItem />
-      <CardItem />
-      <CardItem />
-      <CardItem />
-      <CardItem />
-      <CardItem />
+      ))}
       </section>
       <div className="flex justify-center items-center ">
         <div className="join grid grid-cols-2">
