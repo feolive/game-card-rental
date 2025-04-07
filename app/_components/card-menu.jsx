@@ -7,7 +7,7 @@ export default function CardMenu() {
   const { items, addItem, clearCart } = useContext(CartContext);
 
   return (
-    <div className="w-full h-full relative flex flex-col gap-3">
+    <div className="w-full h-[91%] relative flex flex-col gap-3">
       <div className="flex justify-start items-center gap-4">
         <label className="input">
           <svg
@@ -44,12 +44,18 @@ export default function CardMenu() {
           </label>
         </div>
       </div>
-      <section className="grid grid-cols-4 grid-rows-2 gap-10 h-5/6 self-center">
-      {items && items.map((item) => (
+      <section className="grid grid-cols-4 grid-rows-2 h-5/6 self-center gap-10">
+      {/* {items && items.map((item) => (
         <CardItem key={item.id} item={item} />
-      ))}
+      ))} */}
+      <CardItem />
+      <CardItem />
+      <CardItem />
+      <CardItem />
+      <CardItem />
+      <CardItem />
       </section>
-      <div className="flex justify-center items-center mt-1">
+      <div className="flex justify-center items-center ">
         <div className="join grid grid-cols-2">
           <button className="join-item btn btn-outline w-18 rounded-l-full">«</button>
           <button className="join-item btn btn-outline w-18 rounded-r-full">»</button>
