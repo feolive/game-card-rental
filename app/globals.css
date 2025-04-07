@@ -6,11 +6,13 @@
   name: "dim";
   default: false;
   --color-shadow: rgba(0, 0, 0, 0.8);
+  --color-hover-highlight: #1a1a1a;
 }
 @plugin "daisyui/theme" {
   name: "light";
   default: true;
   --color-shadow: rgba(0, 0, 0, 0.15);
+  --color-hover-highlight: #f0f0f0;
 }
 
 :root {

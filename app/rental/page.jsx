@@ -6,8 +6,10 @@ import clsx from "clsx";
 import Card from "@/app/_components/card";
 import OrderDetails from "@/app/_components/order-details";
 import Close from "@/app/_icons/Close";
+import CardMenu from "@/app/_components/card-menu";
 import CartIcon from "@/app/_icons/CartIcon";
 import SDCard from "@/app/_icons/SDCard";
+import Cart from "@/app/_components/cart";
 import RightArrow from "@/app/_icons/RightArrow"
 import tryCatch from "@/app/_utils/try-catch";
 
@@ -67,7 +69,7 @@ export default function Rental() {
 
   return (
     <div className="w-full h-full flex justify-center items-center min-h-screen gap-24 font-[family-name:var(--font-geist-sans)]">
-      <div className="w-80 relative h-screen flex flex-col justify-end items-center gap-8 pb-24">
+      <div className="w-1/5 relative h-screen flex flex-col justify-end items-center gap-8 pb-24">
         <div className="w-full card h-1/3 bg-base-100 shadow-sm">
           <div className="card-body">
             <div className="flex justify-between items-center">
@@ -145,17 +147,18 @@ export default function Rental() {
         </div>
         <div className={clsx("w-full card h-1/2 bg-base-100 shadow-sm overflow-y-auto transition-transform duration-600", {
           "scale-150": isOrderDetails,
-          "left-20 bottom-20": isOrderDetails,
+          "left-[25%] bottom-[12%]": isOrderDetails,
           "backdrop-blur-xs": isOrderDetails,
           "z-10": isOrderDetails,
-          "opacity-90": isOrderDetails,
+          "bg-transparent": isOrderDetails,
+          "shadow-slate-500": isOrderDetails,
         })}>
         {!isOrderDetails ? (
           <div className="card-body">
             <h2 className="card-title">Orders</h2>
-            {orders && <ul className="list bg-base-100 rounded-box shadow-md">
+            {orders && <ul className="list bg-base-100 rounded-box shadow-md w-full">
                 {orders.map((order) => (
-                  <li className="list-row cursor-pointer flex justify-between items-center" key={order.id} onClick={() => {orderDetails({orderId: order.id, cost: order.cost})}}>
+                  <li className="list-row cursor-pointer flex justify-between items-center hover:bg-[var(--color-hover-highlight)]" key={order.id} onClick={() => {orderDetails({orderId: order.id, cost: order.cost})}}>
                     <div>{order.id}</div>
                     <div className="text-xs uppercase text-success font-semibold opacity-60">$ {order.cost}</div>
                     <div className="text-xs text-success font-semibold opacity-60">Done</div>
@@ -165,20 +168,22 @@ export default function Rental() {
               </ul>}
           </div>
         ): (
-          <div className="card-body">
-            <div className="flex justify-between items-center">
+          <>
+          <div className="card-body bg-transparent z-20">
+            <div className="flex justify-between items-center bg-transparent">
               <div>
-                <h2 className="card-title">Order Details</h2>
-                <div className="text-xl text-success">$ {currOrder.cost||0}</div>
+                <h2 className="card-title text-sm">Order Details</h2>
+                <div className="text-md text-success flex items-baseline gap-1">Total: <div className="stat-value text-sm"> ${currOrder.cost||0}</div></div>
               </div>
               <button className="btn btn-circle btn-sm btn-error" onClick={() => {setIsOrderDetails(false)}}><Close color="var(--color-neutral-content)" /></button>
             </div>
             <OrderDetails id={currOrder.orderId} />
           </div>
+          </>
         )}
         </div>
       </div>
-      <div className="h-screen w-2/3 perspective-distant">
+      <div className="h-screen w-3/5 perspective-distant">
         <div className="absolute top-[5%] left-1/2 -translate-x-1/2">
           <div className="flex text-primaryText text-sm font-bold">
             <div
@@ -204,12 +209,12 @@ export default function Rental() {
           </div>
         </div>
         <Card rotate={rotateItem}>
-          <h2 className="card-title">Game Cards</h2>
+          <h2 className="card-title mb-3">Game Cards</h2>
+          <CardMenu />
         </Card>
         <Card rotate={rotateCart}>
-          <div className="bg-secondary w-full h-full">
-            <h2 className="card-title">Cart</h2>
-          </div>
+          <h2 className="card-title mb-3">Cart</h2>
+          <Cart />
         </Card>
       </div>
     </div>

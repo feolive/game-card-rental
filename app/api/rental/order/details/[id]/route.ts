@@ -10,6 +10,7 @@ import { order, gameCard, cardOrderMapping } from "@/db/schema";
  * @returns 
  */
 export async function GET(req: NextRequest, { params }: { params: { id: number } }) {
+    const {id} = await params;
     return await doGET(async (_db) => {
       const result = await _db.select({
         id: order.id,
@@ -22,7 +23,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: number }
       .from(order)
       .leftJoin(cardOrderMapping, eq(order.id, cardOrderMapping.orderId))
       .leftJoin(gameCard, eq(cardOrderMapping.cardId, gameCard.id))
-      .where(eq(order.id, params.id));
+      .where(eq(order.id, id));
       return result;
     });
 }

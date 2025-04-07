@@ -10,10 +10,11 @@ import { order } from "@/db/schema";
  * @returns 
  */
 export async function GET(req: NextRequest, { params }: { params: { id: number } }) {
+    const {id} = await params;
     return await doGET(async (_db) => {
       const result = await _db.select()
       .from(order)
-      .where(eq(order.customerId, params.id));
+      .where(eq(order.customerId, id));
       return result;
     });
 }
