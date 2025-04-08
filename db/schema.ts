@@ -20,6 +20,7 @@ export const gameCard = pgTable('game_card', {
   createdTime: timestamp('created_time'),
   updatedTime: timestamp('updated_time'),
   mark: integer('mark'),
+  img: text('img'),
 });
 
 export const cardCategoryMapping = pgTable('card_category_mapping', {

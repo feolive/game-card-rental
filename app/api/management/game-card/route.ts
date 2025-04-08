@@ -4,9 +4,9 @@
  */
 "use server";
 import { NextRequest } from "next/server";
-import { doGET, doPOST, getRequestBody } from "@/app/_utils/service";
+import { doGET, doPOST, doPUT, doDELETE, getRequestBody } from "@/app/_utils/service";
 import { eq } from "drizzle-orm";
-import { category } from "@/db/schema";
+import { gameCard } from "@/db/schema";
 
 
 /**
@@ -16,10 +16,10 @@ import { category } from "@/db/schema";
  */
 export async function GET(req: NextRequest) {
   // TODO: add your query code here as code example below, and then remove these two line comments. For more usecases, see https://orm.drizzle.team/docs/select
-    // return await doGET(async (_db) => {
-    //   const result = await _db.select({name: category.name, description: category.description}).from(category).where(eq(category.id, 1));
-    //   return result;
-    // });
+  return await doGET(async (_db) => {
+    const result = await _db.select().from(gameCard);
+    return result;
+  });
 }
 
 /**
@@ -29,15 +29,21 @@ export async function GET(req: NextRequest) {
  */
 export async function POST(req: NextRequest) {
     // TODO: add your code that handles the POST request here, referencing the code example below, and then remove these two line comments. For more usecases, see https://orm.drizzle.team/docs/insert
-    // return await doPOST(async (_db) => {
-    //   const body = await getRequestBody(req);
-    //   const res = await _db.insert(category).values({
-    //     code: body.code,
-    //     name: body.name,
-    //     description: body.description,
-    //   });
-    //   return res;
-    // });
+    return await doPOST(async (_db) => {
+      const body = await getRequestBody(req);
+      const now = new Date();
+      const res = await _db.insert(gameCard).values({
+        name: body.name,
+        inventory: body.inventory,
+        price: body.price,
+        description: body.description,
+        createdTime: now,
+        updatedTime: now,
+        mark: 1,
+        img: '',
+      });
+      return res;
+    });
 }
 
 /**
@@ -47,16 +53,19 @@ export async function POST(req: NextRequest) {
  */
 export async function PUT(req: NextRequest) {
     // TODO: add your code that handles the PUT request here, referencing the code example below, and then remove these two line comments. For more usecases, see https://orm.drizzle.team/docs/update
-    // return await doPUT(async (_db) => {
-    //   // get the request data
-    //   const body = await getRequestBody(req);
-    //   const res = await _db.update(category).set({
-    //     code: body.code,
-    //     name: body.name,
-    //     description: body.description,
-    //   }).where(eq(category.id, 1));
-    //   return res;
-    // });
+    return await doPUT(async (_db) => {
+      // get the request data
+      const body = await getRequestBody(req);
+      const now = new Date();
+      const res = await _db.update(gameCard).set({
+        name: body.name,
+        inventory: body.inventory,
+        price: body.price,
+        description: body.description,
+        updatedTime: now,
+      }).where(eq(gameCard.id, body.id));
+      return res;
+    });
 }
 
 /**
@@ -66,9 +75,9 @@ export async function PUT(req: NextRequest) {
  */
 export async function DELETE(req: NextRequest) {
     // TODO: add your code that handles the DELETE request here, referencing the code example below, and then remove these two line comments. For more usecases, see https://orm.drizzle.team/docs/delete
-    // return await doDELETE(async (_db) => {
-    //   const body = await getRequestBody(req);
-    //   const res = await _db.delete(category).where(eq(category.id, 1));
-    //   return res;
-    // });
+    return await doDELETE(async (_db) => {
+      const body = await getRequestBody(req);
+      const res = await _db.delete(gameCard).where(eq(gameCard.id, body.id));
+      return res;
+    });
 }
