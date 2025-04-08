@@ -9,6 +9,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: numb
     return await doGET(async (_db) => {
         const result = await _db.select({
             id: cart.id,
+            cartId: cart.id,
             cardId: cartCardMapping.cardId,
             customerId: cart.customerId,
             quantity: cartCardMapping.quantity,
@@ -24,38 +25,4 @@ export async function GET(request: NextRequest, { params }: { params: { id: numb
             .where(and(eq(cart.customerId, id),eq(cart.mark, 1)));
         return result;
     });
-}
-
-export async function POST(request: NextRequest) {
-  return await doPOST(async (_db) => {
-    const {customerId, cardId, quantity, totalCost} = await getRequestBody(request);
-    const cartId = (await _db.insert(cart).values({
-      customerId,
-      totalCost,
-    }).returning()).id;
-    const result = await _db.insert(cartCardMapping).values({
-      cartId,
-      cardId,
-      quantity
-    });
-    return result;
-  });
-}
-
-export async function PUT(request: NextRequest) {
-  return await doPUT(async (_db) => {
-    const {cartId, cardId, quantity} = await getRequestBody(request);
-    const result = await _db.update(cartCardMapping).set({
-      quantity
-    }).where(and(eq(cartCardMapping.cartId, cartId),eq(cartCardMapping.cardId, cardId)));
-    return result;
-  });
-}
-
-export async function DELETE(request: NextRequest) {
-  return await doDELETE(async (_db) => {
-    const {cartId, cardId} = await getRequestBody(request);
-    const result = await _db.delete(cartCardMapping).where(and(eq(cartCardMapping.cartId, cartId),eq(cartCardMapping.cardId, cardId)));
-    return result;
-  });
 }

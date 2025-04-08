@@ -50,10 +50,6 @@ export default function Rental() {
 
   const clearTheCart = async () => {
     modalRef.current.showModal();
-    // if(isClearCart) {
-    //   await clearCart();
-    // }
-    // setIsClearCart(!isClearCart);
   };
 
   useEffect(() => {

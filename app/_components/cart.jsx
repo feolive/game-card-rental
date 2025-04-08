@@ -2,7 +2,6 @@ import { useContext, useState,useEffect } from "react";
 import { CartContext } from "@/app/_utils/cart-context";
 import {AuthContext} from "@/app/_utils/auth-context";
 import CartItem from "./cart-item";
-import tryCatch from "@/app/_utils/try-catch";
 
 export default function Cart() {
 
@@ -11,6 +10,53 @@ export default function Cart() {
   const [me, setMe] = useState({});
   
   const handleCheckout = async () => {
+    if(!me?.id){
+      return;
+    }
+    if(!items || items.length === 0){
+      return;
+    }
+    let totalCost = 0;
+    let cartId = null;
+    let cartItems = items.map((item) => {
+      totalCost += (item?.price || 0) * (item?.quantity || 0);
+      if(!cartId){
+        cartId = item?.cartId;
+      }
+      return {
+        cardId: item?.cardId,
+        quantity: item?.quantity,
+      };
+    });
+    if(!cartId){
+      alert("Cart not found");
+      return;
+    }
+    if(totalCost === 0){
+      alert("No items in cart");
+      return;
+    }
+    let params = {
+      customerId: me?.id,
+      cartItems,
+      cost: totalCost,
+      cartId
+    }
+    const res = await fetch(`/api/rental/order`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params)
+    });
+    if(!res){
+      return;
+    }
+    const result = await res.json();
+    if(!result.success){
+      alert(result.message);
+      return;
+    }
     await clearCart();
   };
 
