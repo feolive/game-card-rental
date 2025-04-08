@@ -5,7 +5,8 @@ import { eq, and } from "drizzle-orm";
 import { gameCard, cardCategoryMapping, category } from "@/db/schema";
 
 
-export async function GET({pg_num}) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ pg_num: string }>}) {
+  const {pg_num} = await params;
   return await doGET(async (_db) => {
     const result = await _db.select({
       id: gameCard.id,
@@ -22,7 +23,7 @@ export async function GET({pg_num}) {
       .where(eq(gameCard.mark, 1))
       .orderBy(gameCard.id)
       .limit(8)
-      .offset(pg_num);
+      .offset(Number(pg_num));
     return result;
   });
 }
