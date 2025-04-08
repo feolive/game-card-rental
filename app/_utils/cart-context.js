@@ -6,6 +6,7 @@ const CartContext = createContext();
 export default function CartContextProvider({ children }) {
 
   const [items, setItems] = useState([]);
+  const [refreshOrders, setRefreshOrders] = useState(false);
 
   const addItem = async (item) => {
     if(items.length === 0){
@@ -27,7 +28,7 @@ export default function CartContextProvider({ children }) {
   };
 
   const updateItem = async (item) => {
-    setItems(items.map((i) => i.id === item.id ? item : i));
+    setItems(items.map((i) => i.cardId === item.cardId ? item : i));
   };
 
   const clearCart = async () => {
@@ -36,7 +37,7 @@ export default function CartContextProvider({ children }) {
 
 
   return (
-    <CartContext.Provider value={{ items,setItems, addItem, subItem, clearCart }}>
+    <CartContext.Provider value={{ items,setItems, addItem, subItem, clearCart, refreshOrders, setRefreshOrders }}>
       {children}
     </CartContext.Provider>
   );

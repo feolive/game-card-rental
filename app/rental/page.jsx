@@ -26,9 +26,8 @@ export default function Rental() {
   const [isOrderDetails, setIsOrderDetails] = useState(false);
   const [orders, setOrders] = useState([]);
   const [currOrder, setCurrOrder] = useState({});
-  const { clearCart } = useContext(CartContext);
+  const { clearCart, refreshOrders, setRefreshOrders } = useContext(CartContext);
   const modalRef = useRef(null);
-  const [isClearCart, setIsClearCart] = useState(false);
 
 
   const flipCard = () => {
@@ -36,6 +35,7 @@ export default function Rental() {
       setRotateCart("rotate-y-180");
       setRotateItem("rotate-y-0");
       setIsCart(false);
+
     } else {
       setRotateCart("rotate-y-0");
       setRotateItem("-rotate-y-180");
@@ -76,7 +76,8 @@ export default function Rental() {
       return;
     }
     fetchOrders();
-  }, [me?.id]);
+    setRefreshOrders(false);
+  }, [me?.id, refreshOrders]);
 
 
   return (

@@ -5,7 +5,7 @@ import CartItem from "./cart-item";
 
 export default function Cart() {
 
-  const { items, setItems, clearCart } = useContext(CartContext);
+  const { items, setItems, clearCart, setRefreshOrders } = useContext(CartContext);
   const {customer} = useContext(AuthContext);
   const [me, setMe] = useState({});
   
@@ -58,6 +58,7 @@ export default function Cart() {
       return;
     }
     await clearCart();
+    setRefreshOrders(true);
   };
 
   useEffect(() => {
@@ -83,7 +84,7 @@ export default function Cart() {
     <div className="w-full h-full flex flex-col gap-3">
       <ul className="list bg-base-100 rounded-box h-[80%] overflow-y-auto overflow-x-hidden">
         {(items&&items.length>0) && items.map((item) => (
-          <CartItem key={item.id} item={item} cId={me?.id}/>
+          (item.cardId && <CartItem key={item.id} item={item} cId={me?.id}/>)
         ))}
       </ul>
       <div className="flex justify-center items-center mt-4">

@@ -72,8 +72,8 @@ export const cart = pgTable('cart', {
 
 export const cartCardMapping = pgTable('cart_card_mapping', {
   id: integer('id').primaryKey(),
-  cartId: integer('cart_id').notNull(),
-  cardId: integer('card_id').notNull(),
+  cartId: integer('cart_id'),
+  cardId: integer('card_id'),
   quantity: integer('quantity').notNull(),
   createdTime: timestamp('created_time')
 });

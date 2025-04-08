@@ -10,18 +10,17 @@ export default function CartItem({item, cId}) {
   const [qty, setQty] = useState(item?.quantity || 0);
   const debouncedQty = useDebounce(qty, 1200);
   const [firstRender, setFirstRender] = useState(true);
+  const ready = debouncedQty && !firstRender;
+
 
   useEffect(() => {
-    setQty(item?.quantity);
+    setQty(item?.quantity || 0);
+    setFirstRender(false);
   }, [item.quantity]);
 
   useEffect(() => {
     if(!debouncedQty) return;
     async function updateCart() {
-      if(firstRender){
-        setFirstRender(false);
-        return;
-      }
       if(item.new){
         item.new = false;
         await fetch(`/api/rental/cart`, {
@@ -64,7 +63,7 @@ export default function CartItem({item, cId}) {
       
     }
     updateCart();
-  }, [debouncedQty]);
+  }, [ready]);
 
   return (
     <>
@@ -89,7 +88,7 @@ export default function CartItem({item, cId}) {
           <button className="btn btn-square btn-ghost" onClick={() => subItem(item)}>
             <MinusIcon color="var(--color-info)" />
           </button>
-          <input type="number" className="input input-xs w-10 text-center" value={qty} readOnly min={0} max={0}/>
+          <input type="number" className="input input-xs w-10 text-center" value={qty || 0} readOnly min={0} max={0}/>
           <button className="btn btn-square btn-ghost" onClick={() => addItem(item)}>
           <PlusIcon color="var(--color-secondary)" />
         </button>

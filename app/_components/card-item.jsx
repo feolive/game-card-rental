@@ -5,7 +5,7 @@ import { CartContext } from "@/app/_utils/cart-context";
 
 export default function CardItem({ item }) {
 
-  const { items, addItem, subItem } = useContext(CartContext);
+  const { items, addItem, subItem, setItems } = useContext(CartContext);
   const [quantity, setQuantity] = useState(item?.quantity || 0);
 
   useEffect(() => {
@@ -13,12 +13,25 @@ export default function CardItem({ item }) {
   }, [item.quantity]);
 
   const handleAdd = () => {
-    if(items.find(i => i.id === item.id)){
+    if(items && items.length > 0){
+      bindCartItems(item);
       addItem(item);
       return;
     }
     item.new = true;
     addItem(item);
+  };
+
+  const bindCartItems = (item) => {
+    if(items && items.length > 0){
+      setItems(items.map(i => {
+        if(!i.cardId){
+          i.cardId = item.cardId;
+          item.cartId= i.cartId;
+        }
+        return i;
+      }));
+    }
   };
 
   return (

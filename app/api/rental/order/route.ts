@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
             customerId,
             cost
         }).returning())[0].id;
-        params.cartItems.forEach(async (param: { cardId: number; quantity: number }) => {
+        await params.cartItems.forEach( async (param: { cardId: number; quantity: number }) => {
             const { cardId, quantity } = param;
             // update gameCard inventory
             // check if inventory is enough
@@ -41,9 +41,8 @@ export async function POST(req: NextRequest) {
                 cardId,
                 quantity
             });
-            // remove the cart and customer relation
-            await _db.delete(cartCardMapping).where(and(eq(cartCardMapping.cartId, cartId), eq(cartCardMapping.cardId, cardId)));
         });
+        await _db.delete(cartCardMapping).where(eq(cartCardMapping.cartId, cartId));
         // update customer credits
         // check if customer credits is enough
         const customerData = await _db.select().from(customer).where(eq(customer.id, customerId));

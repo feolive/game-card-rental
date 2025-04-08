@@ -23,6 +23,17 @@ export async function POST(request: NextRequest) {
 export async function PUT(request: NextRequest) {
   return await doPUT(async (_db) => {
     const {cartId, cardId, quantity} = await getRequestBody(request);
+    // select mapping
+    const mapping = await _db.select().from(cartCardMapping).where(and(eq(cartCardMapping.cartId, cartId),eq(cartCardMapping.cardId, cardId)));
+    if(!mapping.length){
+      // insert 
+      const result = await _db.insert(cartCardMapping).values({
+        cartId,
+        cardId,
+        quantity
+      });
+      return result;
+    }
     const result = await _db.update(cartCardMapping).set({
       quantity
     }).where(and(eq(cartCardMapping.cartId, cartId),eq(cartCardMapping.cardId, cardId)));
