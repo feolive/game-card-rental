@@ -1,10 +1,36 @@
 import CardItem from "./card-item";
 import { CartContext } from "@/app/_utils/cart-context";
-import { useContext } from "react";
+import { useContext,useEffect,useState } from "react";
+import tryCatch from "@/app/_utils/try-catch";
 
 export default function CardMenu() {
 
-  const { items, addItem, clearCart } = useContext(CartContext);
+  const [listItems, setListItems] = useState([]);
+  const [pageNum, setPageNum] = useState(1);
+
+  const { items,setItems, addItem, clearCart } = useContext(CartContext);
+
+  const setPageNumber = (num) => {
+    if(num < 1) return;
+    setPageNum(num);
+  };
+
+  useEffect(() => {
+    async function fetchItems() {
+      const [data, error] = await tryCatch(async () => await fetch(`/api/rental/items/${pageNum-1}`));
+      if(error){
+        console.error(error);
+        return;
+      }
+      if(!data){
+        return;
+      }
+      const itemData = await data.json();
+      setListItems(itemData);
+    }
+    fetchItems();
+  },[pageNum]);
+
 
   return (
     <div className="w-full h-[80em] relative flex flex-col gap-3">
@@ -45,14 +71,14 @@ export default function CardMenu() {
         </div>
       </div>
       <section className="grid grid-cols-4 grid-rows-2 h-5/6 self-center gap-10">
-      {items && items.map((item) => (
+      {listItems && listItems.map((item) => (
         <CardItem key={item.id} item={item} />
       ))}
       </section>
       <div className="flex justify-center items-center ">
         <div className="join grid grid-cols-2">
-          <button className="join-item btn btn-outline w-18 rounded-l-full">«</button>
-          <button className="join-item btn btn-outline w-18 rounded-r-full">»</button>
+          <button className="join-item btn btn-outline w-18 rounded-l-full" onClick={() => setPageNumber(prev => prev - 1)}>«</button>
+          <button className="join-item btn btn-outline w-18 rounded-r-full" onClick={() => setPageNumber(prev => prev + 1)}>»</button>
         </div>
       </div>
     </div>

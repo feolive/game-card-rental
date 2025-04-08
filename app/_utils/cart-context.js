@@ -12,7 +12,7 @@ export default function CartContextProvider({ children }) {
       item.quantity = 1;
       setItems([...items, item]);
     }else{
-      item.quantity += 1;
+      item.quantity = item.quantity ? item.quantity + 1 : 1;
       updateItem(item);
     }
   };
@@ -36,7 +36,7 @@ export default function CartContextProvider({ children }) {
 
 
   return (
-    <CartContext.Provider value={{ items, addItem, subItem, clearCart }}>
+    <CartContext.Provider value={{ items,setItems, addItem, subItem, clearCart }}>
       {children}
     </CartContext.Provider>
   );

@@ -50,10 +50,10 @@ export default function Rental() {
 
   const clearTheCart = async () => {
     modalRef.current.showModal();
-    if(isClearCart) {
-      await clearCart();
-    }
-    setIsClearCart(!isClearCart);
+    // if(isClearCart) {
+    //   await clearCart();
+    // }
+    // setIsClearCart(!isClearCart);
   };
 
   useEffect(() => {
@@ -238,7 +238,7 @@ export default function Rental() {
           <Cart />
         </Card>
       </div>
-      <ModalDialog refName={modalRef} title="Clear Cart" description="Are you sure you want to clear your cart?" onConfirm={clearTheCart} />
+      <ModalDialog refName={modalRef} title="Clear Cart" description="Are you sure you want to clear your cart?" onConfirm={clearCart} />
     </div>
   );
 }

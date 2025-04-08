@@ -60,3 +60,21 @@ export const cardOrderMapping = pgTable('card_order_mapping', {
   quantity: integer('quantity').notNull(),
   createdTime: timestamp('created_time')
 });
+
+export const cart = pgTable('cart', {
+  id: integer('id').primaryKey(),
+  customerId: integer('customer_id').notNull(),
+  totalCost: numeric('total_cost'),
+  createdTime: timestamp('created_time'),
+  updatedTime: timestamp('updated_time'),
+  mark: integer('mark')
+});
+
+export const cartCardMapping = pgTable('cart_card_mapping', {
+  id: integer('id').primaryKey(),
+  cartId: integer('cart_id').notNull(),
+  cardId: integer('card_id').notNull(),
+  quantity: integer('quantity').notNull(),
+  createdTime: timestamp('created_time')
+});
+  
