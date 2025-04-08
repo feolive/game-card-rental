@@ -19,7 +19,7 @@ export async function GET({pg_num}) {
       .from(gameCard)
       .leftJoin(cardCategoryMapping, eq(gameCard.id, cardCategoryMapping.cardId))
       .leftJoin(category, eq(cardCategoryMapping.categoryId, category.id))
-      .where(and(eq(gameCard.mark, 1),eq(category.mark, 1)))
+      .where(eq(gameCard.mark, 1))
       .orderBy(gameCard.id)
       .limit(8)
       .offset(pg_num);

@@ -10,8 +10,12 @@ export default function CartItem({item, cId}) {
   const [qty, setQty] = useState(item?.quantity || 0);
   const debouncedQty = useDebounce(qty, 1200);
   const [firstRender, setFirstRender] = useState(true);
-  const ready = debouncedQty && !firstRender;
+  const [ready, setReady] = useState(debouncedQty && !firstRender);
+  // const ready = debouncedQty && !firstRender;
 
+  useEffect(() => {
+    setReady(debouncedQty && !firstRender);
+  }, [debouncedQty, firstRender]);
 
   useEffect(() => {
     setQty(item?.quantity || 0);
