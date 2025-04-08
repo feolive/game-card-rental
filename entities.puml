@@ -1,4 +1,5 @@
 @startuml game card rental entities
+' left to right direction
 hide circle
 skinparam linetype ortho
 skinparam backgroundColor #fdf0d5
@@ -72,11 +73,31 @@ entity category {
     updatedTime: timestamp <<generated>>
 }
 
+entity cart {
+    id: integer <<generated>> <<pk>>
+    customerId: integer <<not null>>
+    totalCost: numeric
+    createdTime: timestamp <<generated>>
+    updatedTime: timestamp <<generated>>
+    mark: integer
+}
+
+entity cartCardMapping {
+    id: integer <<generated>> <<pk>>
+    cartId: integer <<not null>>
+    cardId: integer <<not null>>
+    quantity: integer <<not null>>
+    createdTime: timestamp <<generated>>
+}
+
 order }o--|| customer
 gameCard ||--o{ cardOrderMapping
 cardOrderMapping }o--|| order
 gameCard ||--o{ cardCategoryMapping
 cardCategoryMapping }o--|| category
+cart ||--o{ cartCardMapping
+cartCardMapping }o--|| gameCard
+customer ||--o| cart
 
 
 @enduml

@@ -26,9 +26,8 @@ export default function Rental() {
   const [isOrderDetails, setIsOrderDetails] = useState(false);
   const [orders, setOrders] = useState([]);
   const [currOrder, setCurrOrder] = useState({});
-  const { clearCart } = useContext(CartContext);
+  const { clearCart, refreshOrders, setRefreshOrders } = useContext(CartContext);
   const modalRef = useRef(null);
-  const [isClearCart, setIsClearCart] = useState(false);
 
 
   const flipCard = () => {
@@ -36,6 +35,7 @@ export default function Rental() {
       setRotateCart("rotate-y-180");
       setRotateItem("rotate-y-0");
       setIsCart(false);
+
     } else {
       setRotateCart("rotate-y-0");
       setRotateItem("-rotate-y-180");
@@ -50,10 +50,6 @@ export default function Rental() {
 
   const clearTheCart = async () => {
     modalRef.current.showModal();
-    if(isClearCart) {
-      await clearCart();
-    }
-    setIsClearCart(!isClearCart);
   };
 
   useEffect(() => {
@@ -80,7 +76,8 @@ export default function Rental() {
       return;
     }
     fetchOrders();
-  }, [me?.id]);
+    setRefreshOrders(false);
+  }, [me?.id, refreshOrders]);
 
 
   return (
@@ -238,7 +235,7 @@ export default function Rental() {
           <Cart />
         </Card>
       </div>
-      <ModalDialog refName={modalRef} title="Clear Cart" description="Are you sure you want to clear your cart?" onConfirm={clearTheCart} />
+      <ModalDialog refName={modalRef} title="Clear Cart" description="Are you sure you want to clear your cart?" onConfirm={clearCart} />
     </div>
   );
 }
