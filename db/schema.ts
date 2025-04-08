@@ -17,6 +17,7 @@ export const gameCard = pgTable('game_card', {
   description: text('description'),
   inventory: integer('inventory').notNull(),
   price: numeric('price').notNull(),
+  img: text('img'),
   createdTime: timestamp('created_time'),
   updatedTime: timestamp('updated_time'),
   mark: integer('mark'),

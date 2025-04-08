@@ -32,6 +32,7 @@ entity gameCard {
     description: text
     inventory: integer <<not null>>
     price: numeric <<not null>>
+    img: text
     mark: integer
     createdTime: timestamp <<generated>>
     updatedTime: timestamp <<generated>>
