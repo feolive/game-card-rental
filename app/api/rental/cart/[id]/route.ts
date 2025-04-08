@@ -4,7 +4,7 @@ import { doGET, doPOST,doPUT,doDELETE, getRequestBody } from "@/app/_utils/servi
 import { cart, cartCardMapping, gameCard} from "@/db/schema";
 import { eq, and } from "drizzle-orm";
 
-export async function GET(request: NextRequest, { params }: { params: { id: number } }) {
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
     const {id} = await params;
     return await doGET(async (_db) => {
         const result = await _db.select({
@@ -22,7 +22,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: numb
             .from(cart)
             .leftJoin(cartCardMapping, eq(cart.id, cartCardMapping.cartId))
             .leftJoin(gameCard, eq(cartCardMapping.cardId, gameCard.id))
-            .where(and(eq(cart.customerId, id),eq(cart.mark, 1)));
+            .where(and(eq(cart.customerId, Number(id)),eq(cart.mark, 1)));
         return result;
     });
 }

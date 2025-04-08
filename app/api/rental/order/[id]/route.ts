@@ -9,12 +9,12 @@ import { order } from "@/db/schema";
  * @param req NextRequest 
  * @returns 
  */
-export async function GET(req: NextRequest, { params }: { params: { id: number } }) {
+export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
     const {id} = await params;
     return await doGET(async (_db) => {
       const result = await _db.select()
       .from(order)
-      .where(eq(order.customerId, id));
+      .where(eq(order.customerId, Number(id)));
       return result;
     });
 }
