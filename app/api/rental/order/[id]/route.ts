@@ -9,7 +9,7 @@ import { order } from "@/db/schema";
  * @param req NextRequest 
  * @returns 
  */
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }>}) {
     const {id} = await params;
     return await doGET(async (_db) => {
       const result = await _db.select()
